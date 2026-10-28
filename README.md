@@ -6,7 +6,7 @@ Nutritrack is an AI meal planner for university students on a tight budget. Ever
 
 > We believe that adding groceries with one photo of the supermarket receipt will make students actually record what they buy. We will know we are right when 4 out of 5 students add a real receipt in less than 30 seconds, with at least 90% of the items correct, and say they would use it again.
 
-**Team:** Kelly Owusu Kwabeng Thompson and Nico Alcaide. Launching AI-Native Ventures, Esade.
+**Founder:** Kelly Owusu Kwabeng Thompson (with Nico Alcaide until Session 6). Launching AI-Native Ventures, Esade.
 
 ## What it does
 

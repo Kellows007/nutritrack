@@ -3,7 +3,7 @@
 > The brain of the project. Every AI coding session starts by reading this file.
 > If a choice contradicts this doc, either the choice changes or this doc is updated on purpose — never silently.
 
-**Founders:** Kelly Owusu Kwabeng Thompson & Nico Alcaide
+**Founder:** Kelly Owusu Kwabeng Thompson (Nico Alcaide was co-founder until October 2026 and has left the course)
 **Course:** Launching AI-Native Ventures, Esade
 **Last updated:** 28 October 2026 (Session 7)
 
@@ -121,6 +121,7 @@ Note: competitor names, market size (≈$414M meal-planning app market in 2025) 
 - Competitor map done: NoWaste (direct, already scans receipts), Samsung Food (big company, meal planning), substitutes (nothing / memory / notes), ChatGPT (general AI). Strongest: ChatGPT. Our bet: data cycle on Spanish receipts + switching costs (pantry and learned preferences).
 - **Honest status:** the loop works in the app, tested with the sample receipt and test data. We have no real corrections yet (no new users since 13 Oct), so the metric has no real values yet. Data is stored per browser, there is no shared database yet, so testers must send their file.
 - Added assumption **A8**.
+- **Team change:** Nico Alcaide left the course this week. From Session 7 Kelly continues the project alone; earlier log entries stay as they were.
 - **Next:** add the API key and deploy, test with 5 students, collect their correction files, first review session.
 
 ### Update — 25 October 2026 (after teacher feedback)
