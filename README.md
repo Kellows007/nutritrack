@@ -16,6 +16,10 @@ Nutritrack is an AI meal planner for university students on a tight budget. Ever
 
 There is also a **Try with a sample receipt** button to show the flow without an API key. Sample data is always labelled as sample in the app.
 
+## How it learns (Session 7)
+
+When you change the expiry days of a product, Nutritrack remembers it for you and shows it in green next time. Corrections from testers become *suggested* rules on `/review`; a founder approves them before they are added to Claude's prompt (`lib/approved-rules.js`). Risky fresh food never goes above a safe limit (`lib/safety.js`). Users can switch learning off, reset it or download their data from the pantry screen.
+
 ## How it is built
 
 | Part | File |
@@ -24,6 +28,10 @@ There is also a **Try with a sample receipt** button to show the flow without an
 | Claude call (server only, key never in the browser) | `app/api/read-receipt/route.js` |
 | Photo resize before upload (faster) | `lib/image.js` |
 | Pantry storage (browser, for now) | `lib/pantry.js` |
+| Learning loop (corrections, preferences, suggestions) | `lib/learning.js` |
+| Safety limits for expiry days | `lib/safety.js` |
+| Founder review page (human check) | `app/review/page.js` |
+| Human-approved shared rules | `lib/approved-rules.js` |
 | Decisions, principles and log | `architecturedoc.md` |
 
 Stack: Next.js 14 (React), one LLM (Claude), hosted on Vercel. See `architecturedoc.md` for why.
@@ -38,8 +46,8 @@ npm run dev                  # open http://localhost:3000
 
 On Vercel, add `ANTHROPIC_API_KEY` in Project Settings → Environment Variables. **Never commit `.env.local`** (it is in `.gitignore`).
 
-## Status (25 October 2026)
+## Status (28 October 2026)
 
-- Works: upload, Claude call from the server, review and edit, pantry saved in the browser, timer.
+- Works: upload, Claude call from the server, review and edit, pantry saved in the browser, timer, learning loop with human review.
 - Not yet: login and database (Supabase), meal plans, alerts. Not yet timed live with a real API key.
 - First user test (Session 6, before the server connection): 4 people used real Mercadona receipts; all items read correctly, but it took a couple of minutes. See `architecturedoc.md`.

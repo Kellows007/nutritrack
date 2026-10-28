@@ -5,7 +5,7 @@
 
 **Founders:** Kelly Owusu Kwabeng Thompson & Nico Alcaide
 **Course:** Launching AI-Native Ventures, Esade
-**Last updated:** 25 October 2026 (after Session 6)
+**Last updated:** 28 October 2026 (Session 7)
 
 ---
 
@@ -49,6 +49,24 @@ These are the rules the product and the code follow. When the AI suggests someth
 - **Receipt photos are not stored.** They are sent to Claude, read, and discarded. Only the confirmed item list is kept.
 - **No real user touches a feature until these three rules are checked.**
 
+## Learning loop (added Session 7)
+
+**Behaviour we learn from:** what users accept, edit or delete in the "Check your items" list, especially the expiry days (an AI guess).
+
+| Step | What happens | Where in the code |
+|---|---|---|
+| Input | For every product we save if it was accepted, edited (which field, before and after) or deleted, plus store and seconds. | `lib/learning.js` `recordReview()` |
+| Processing | If the user changed the expiry days of a product, we save that as their personal preference (never above the safety limit). | `recordReview()` |
+| Output | Next receipt, that product shows the user's days in green ("learned from your past changes"). | `applyLearned()`, `app/page.js` |
+| Learning | Corrections from all testers are grouped into suggested rules (skip a line, rename a product, use N days) when 2+ corrections agree. | `suggestRules()`, `/review` |
+| Improvement | Approved rules go into Claude's prompt for everyone, so the next user needs fewer corrections. Measured as % of products accepted without changes. | `lib/approved-rules.js`, `route.js` |
+
+**Human safety check:** a founder sits between "suggested rule" and "rule used for all users". Nothing learned from data changes the shared prompt until a person approves it on `/review` and commits it to `lib/approved-rules.js` (with name and date). Personal preferences apply automatically because they only affect that one user, who can see them, switch learning off or reset it.
+
+**Red line (code, not a person):** the app never learns to say risky fresh food lasts longer than a safe limit (chicken and minced meat 2 days, other meat 3, fish and seafood 2). `lib/safety.js` caps every expiry number, from the AI, from a user or from a rule.
+
+**What it does NOT learn:** anything about calories, weight, body or diet (principle 1 and 4). We only learn about receipts and food.
+
 ## Dependencies to avoid and why
 
 - **Native iOS / Android builds (Swift, Kotlin, React Native):** too slow to build and test for a team of two in one term. A PWA is enough to test the idea.
@@ -84,12 +102,26 @@ What we do badly on purpose:
 | A5 | The AI can read Spanish supermarket receipts (Mercadona, Lidl, Carrefour, Dia) correctly. | Test 10 real receipts. Success = 90% of items read correctly. **Session 6: looks good for Mercadona.** All items were read correctly on the receipts we tried. Lidl, Carrefour and Dia not tested yet. |
 | A6 | Someone will pay for it eventually. | Not tested yet. Parked until A1–A3 are proven. |
 | A7 | Once Claude is connected directly to the app, the full receipt → pantry flow takes under 30 s on a phone. | Connect the API on the server and time 10 real receipts. Success = 9 of 10 under 30 s. |
+| A8 | User corrections make the next list better (fewer changes needed). | Track % of products accepted without changes per receipt. Success = it goes up across a user's first 5 receipts and for new users after approved rules. |
 
 Note: competitor names, market size (≈$414M meal-planning app market in 2025) and food waste figures (UNEP, 1.05 billion tonnes in 2022, 60% from households) came from AI research and have not been checked against the original sources yet.
 
 ---
 
 ## 6. Session log
+
+### Session 7 — 28 October 2026 (Products that learn)
+
+- Chose the behaviour for the learning loop: **corrections in the review list** (accept / edit / delete), mainly expiry days. Implicit data: users show us where the AI was wrong without telling us.
+- **Built the first version** (code in the repo): correction log, personal expiry preferences shown in green, founder review page `/review` with suggested rules, `lib/approved-rules.js` for human-approved shared rules, and `lib/safety.js` with safe limits for meat and fish.
+- **Human check:** placed between suggested rules and the shared prompt, because that is the step that changes the app for everyone. Cost: about 10–15 minutes a week for one founder at our size.
+- **User control:** switch "Learn from my changes" on/off, "Reset learning", "Download my data". The app explains how it learns on the pantry screen.
+- **Decision:** no model training. The loop changes a stored preference and the prompt (Huyen: reasons not to finetune).
+- **Growth metrics:** % of products accepted without changes, and median seconds per receipt.
+- Competitor map done: NoWaste (direct, already scans receipts), Samsung Food (big company, meal planning), substitutes (nothing / memory / notes), ChatGPT (general AI). Strongest: ChatGPT. Our bet: data cycle on Spanish receipts + switching costs (pantry and learned preferences).
+- **Honest status:** the loop works in the app, tested with the sample receipt and test data. We have no real corrections yet (no new users since 13 Oct), so the metric has no real values yet. Data is stored per browser, there is no shared database yet, so testers must send their file.
+- Added assumption **A8**.
+- **Next:** add the API key and deploy, test with 5 students, collect their correction files, first review session.
 
 ### Update — 25 October 2026 (after teacher feedback)
 

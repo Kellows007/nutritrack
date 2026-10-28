@@ -2,6 +2,9 @@
 // Receives one receipt photo, asks Claude to read it, returns a clean list of items.
 // The photo is not stored anywhere (architecturedoc.md, Security rules).
 
+import { APPROVED_RULES } from "@/lib/approved-rules";
+import { clampDays } from "@/lib/safety";
+
 export const runtime = "nodejs";
 
 const MAX_BYTES = 5 * 1024 * 1024; // 5 MB after client-side resize
@@ -16,6 +19,12 @@ Rules:
 - price is the total price of that line in euros.
 - expiry_days is your best guess of how many days the product lasts at home (fresh meat 2, fish 1, bread 3, fruit 5, vegetables 5, milk 7, eggs 21, yogurt 14, dry/canned food 180). It is only an estimate; the user can change it.
 - Skip totals, taxes, payment lines, discounts and bags.`;
+
+// Shared rules only come from lib/approved-rules.js, which a founder edits after review (human check).
+function buildPrompt() {
+  if (!APPROVED_RULES.length) return PROMPT;
+  return PROMPT + "\nExtra rules learned from users and approved by the team:\n" + APPROVED_RULES.map((r) => "- " + r.rule).join("\n");
+}
 
 export async function POST(req) {
   const key = process.env.ANTHROPIC_API_KEY;
@@ -57,7 +66,7 @@ export async function POST(req) {
           role: "user",
           content: [
             { type: "image", source: { type: "base64", media_type: mediaType, data: image } },
-            { type: "text", text: PROMPT },
+            { type: "text", text: buildPrompt() },
           ],
         },
       ],
@@ -84,7 +93,7 @@ export async function POST(req) {
       quantity: num(i.quantity, 1),
       unit: ["ud", "kg", "g", "l", "ml"].includes(i.unit) ? i.unit : "ud",
       price: num(i.price, 0),
-      expiry_days: Math.round(num(i.expiry_days, 7)),
+      expiry_days: clampDays(i.name, num(i.expiry_days, 7)),
     }));
 
   return Response.json({ store: parsed.store || null, items, ai_ms: Date.now() - started });
