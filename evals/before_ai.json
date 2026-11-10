@@ -1,0 +1,78 @@
+{
+"_how": "Step 1+2 output: what Claude returns when given each photo and the CURRENT prompt in app/api/read-receipt/route.js (v0.2). Read by Claude in chat, as the handout allows when the app has no live API key.",
+"1": {"store": "Mercadona", "items": [
+  {"name": "Leche semidesnatada", "quantity": 1, "unit": "ud", "price": 0.89, "expiry_days": 7},
+  {"name": "Pan de molde integral", "quantity": 1, "unit": "ud", "price": 1.45, "expiry_days": 5},
+  {"name": "Huevos frescos L 12 unidades", "quantity": 1, "unit": "ud", "price": 2.85, "expiry_days": 21},
+  {"name": "Tomate pera", "quantity": 1, "unit": "ud", "price": 1.99, "expiry_days": 5},
+  {"name": "Arroz redondo 1 kg", "quantity": 1, "unit": "ud", "price": 1.15, "expiry_days": 180}]},
+"2": {"store": "Lidl", "items": [
+  {"name": "Leche semidesnatada 1 L", "quantity": 1, "unit": "ud", "price": 0.79, "expiry_days": 7},
+  {"name": "Yogur griego natural 4 unidades", "quantity": 1, "unit": "ud", "price": 1.49, "expiry_days": 14},
+  {"name": "Pan de barra rústico", "quantity": 1, "unit": "ud", "price": 0.45, "expiry_days": 2},
+  {"name": "Pechuga de pollo fileteada", "quantity": 1, "unit": "ud", "price": 4.29, "expiry_days": 2},
+  {"name": "Espinacas frescas 300 g", "quantity": 1, "unit": "ud", "price": 1.19, "expiry_days": 4}]},
+"3": {"store": "Carrefour Market", "items": [
+  {"name": "Queso rallado 200 g", "quantity": 2, "unit": "ud", "price": 3.98, "expiry_days": 30},
+  {"name": "Pasta macarrón 500 g", "quantity": 1, "unit": "ud", "price": 0.85, "expiry_days": 365},
+  {"name": "Tomate frito 400 g", "quantity": 1, "unit": "ud", "price": 0.79, "expiry_days": 365}]},
+"4": {"store": "Mercadona", "items": [
+  {"name": "Plátano", "quantity": 1.234, "unit": "kg", "price": 2.46, "expiry_days": 5},
+  {"name": "Manzana golden", "quantity": 0.856, "unit": "kg", "price": 1.96, "expiry_days": 14},
+  {"name": "Cebolla malla 1 kg", "quantity": 1, "unit": "ud", "price": 1.29, "expiry_days": 21}]},
+"5": {"store": "Mercadona", "items": [
+  {"name": "Yogur natural", "quantity": 3, "unit": "ud", "price": 1.05, "expiry_days": 14},
+  {"name": "Leche entera 1 L", "quantity": 2, "unit": "ud", "price": 1.90, "expiry_days": 7},
+  {"name": "Atún claro pack 3", "quantity": 1, "unit": "ud", "price": 2.79, "expiry_days": 180}]},
+"6": {"store": "Carrefour Market", "items": [
+  {"name": "Agua mineral 1,5 L", "quantity": 1, "unit": "ud", "price": 0.39, "expiry_days": 180},
+  {"name": "Galletas María", "quantity": 1, "unit": "ud", "price": 1.10, "expiry_days": 180}]},
+"7": {"store": "Dia", "items": [
+  {"name": "Arroz redondo 1 kg", "quantity": 1, "unit": "ud", "price": 1.15, "expiry_days": 180},
+  {"name": "Lentejas cocidas 400 g", "quantity": 1, "unit": "ud", "price": 0.89, "expiry_days": 180},
+  {"name": "Aceite de girasol 1 L", "quantity": 1, "unit": "ud", "price": 1.89, "expiry_days": 180},
+  {"name": "Cebolla malla 1 kg", "quantity": 1, "unit": "ud", "price": 1.29, "expiry_days": 21}]},
+"8": {"store": "Mercadona", "items": [
+  {"name": "Pechuga de pavo en lonchas", "quantity": 1, "unit": "ud", "price": 1.79, "expiry_days": 5},
+  {"name": "Pimiento rojo", "quantity": 1, "unit": "ud", "price": 1.30, "expiry_days": 7},
+  {"name": "Pan de molde blanco", "quantity": 1, "unit": "ud", "price": 1.25, "expiry_days": 5}]},
+"9": {"store": "Mercadona", "items": [
+  {"name": "Leche semidesnatada", "quantity": 1, "unit": "ud", "price": 0.89, "expiry_days": 7},
+  {"name": "Huevos frescos L 12 unidades", "quantity": 1, "unit": "ud", "price": 2.85, "expiry_days": 21},
+  {"name": "Pan de molde integral", "quantity": 1, "unit": "ud", "price": 1.45, "expiry_days": 5},
+  {"name": "Arroz redondo 1 kg", "quantity": 1, "unit": "ud", "price": 1.15, "expiry_days": 180},
+  {"name": "Pasta espagueti 500 g", "quantity": 1, "unit": "ud", "price": 0.95, "expiry_days": 365},
+  {"name": "Tomate frito 400 g", "quantity": 1, "unit": "ud", "price": 0.79, "expiry_days": 365},
+  {"name": "Atún claro pack 3", "quantity": 1, "unit": "ud", "price": 2.79, "expiry_days": 180},
+  {"name": "Garbanzos cocidos", "quantity": 1, "unit": "ud", "price": 0.75, "expiry_days": 180},
+  {"name": "Cebolla malla 1 kg", "quantity": 1, "unit": "ud", "price": 1.29, "expiry_days": 21},
+  {"name": "Zanahoria 1 kg", "quantity": 1, "unit": "ud", "price": 0.99, "expiry_days": 14},
+  {"name": "Patata 3 kg", "quantity": 1, "unit": "ud", "price": 2.99, "expiry_days": 21},
+  {"name": "Muslos de pollo", "quantity": 1, "unit": "ud", "price": 3.45, "expiry_days": 2},
+  {"name": "Yogur griego 6 unidades", "quantity": 1, "unit": "ud", "price": 1.60, "expiry_days": 14},
+  {"name": "Queso fresco", "quantity": 1, "unit": "ud", "price": 1.85, "expiry_days": 7},
+  {"name": "Manzana Fuji 1 kg", "quantity": 1, "unit": "ud", "price": 2.19, "expiry_days": 14},
+  {"name": "Plátano de Canarias", "quantity": 1, "unit": "ud", "price": 1.80, "expiry_days": 5},
+  {"name": "Café molido 250 g", "quantity": 1, "unit": "ud", "price": 2.35, "expiry_days": 180},
+  {"name": "Aceite de oliva 1 L", "quantity": 1, "unit": "ud", "price": 6.95, "expiry_days": 365}]},
+"10": {"store": "Carrefour Market", "items": [
+  {"name": "Detergente líquido", "quantity": 1, "unit": "ud", "price": 3.95, "expiry_days": 365},
+  {"name": "Papel higiénico 12 rollos", "quantity": 1, "unit": "ud", "price": 4.20, "expiry_days": 365},
+  {"name": "Pasta espagueti 500 g", "quantity": 1, "unit": "ud", "price": 0.95, "expiry_days": 365},
+  {"name": "Gel de ducha 750 ml", "quantity": 1, "unit": "ud", "price": 1.45, "expiry_days": 365},
+  {"name": "Tomate frito 400 g", "quantity": 1, "unit": "ud", "price": 0.79, "expiry_days": 365}]},
+"11": {"store": "Mercadona", "items": [
+  {"name": "Pechuga de pollo", "quantity": 1, "unit": "ud", "price": 4.10, "expiry_days": 2},
+  {"name": "Leche entera 1 L", "quantity": 1, "unit": "ud", "price": 0.95, "expiry_days": 7}]},
+"12": {"store": "Lidl", "items": [
+  {"name": "Manzana golden 1 kg", "quantity": 1, "unit": "ud", "price": 1.99, "expiry_days": 14},
+  {"name": "Pan de barra rústico", "quantity": 1, "unit": "ud", "price": 0.45, "expiry_days": 2}]},
+"13": {"store": "Restaurante Can Joan", "items": [
+  {"name": "Menú del día", "quantity": 1, "unit": "ud", "price": 12.50, "expiry_days": 1}]},
+"14": {"store": "Mercadona", "items": [
+  {"name": "Salmón fresco lomos", "quantity": 1, "unit": "ud", "price": 5.49, "expiry_days": 30},
+  {"name": "Pechuga de pollo", "quantity": 1, "unit": "ud", "price": 4.10, "expiry_days": 2}]},
+"15": {"store": "Dia", "items": [
+  {"name": "Arroz redondo 1 kg", "quantity": 1, "unit": "ud", "price": 1.15, "expiry_days": 180},
+  {"name": "Lentejas cocidas 400 g", "quantity": 1, "unit": "ud", "price": 0.89, "expiry_days": 180}]}
+}

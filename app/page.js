@@ -14,6 +14,7 @@ export default function Home() {
   const [store, setStore] = useState(null);
   const [isSample, setIsSample] = useState(false);
   const [error, setError] = useState("");
+  const [warning, setWarning] = useState("");
   const [pantry, setPantry] = useState([]);
   const [elapsed, setElapsed] = useState(0);
   const [lastTime, setLastTime] = useState(null);
@@ -70,6 +71,7 @@ export default function Home() {
       if (!res.ok) throw new Error(data.error || "Something went wrong.");
       if (!data.items.length) throw new Error("No products found. Try a clearer photo of the receipt.");
       showList(data.items, data.store, false);
+      setWarning(data.warning || "");
     } catch (err) {
       setError(err.message);
       setStep("upload");
@@ -81,6 +83,7 @@ export default function Home() {
     setIsSample(true);
     startRef.current = Date.now();
     setElapsed(0);
+    setWarning("");
     showList(SAMPLE.items.map((i) => ({ ...i })), SAMPLE.store, true);
   }
 
@@ -141,6 +144,7 @@ export default function Home() {
       {step === "review" && (
         <section>
           <h1>Check your items</h1>
+          {warning && <div className="err">{warning}</div>}
           {isSample && <div className="sample">Sample data, not read by the AI. Use a real receipt to test.</div>}
           <div className="meta">
             <span>{store || "Receipt"} · {items.length} items · €{total.toFixed(2)}</span>

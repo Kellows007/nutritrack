@@ -5,7 +5,7 @@
 
 **Founder:** Kelly Owusu Kwabeng Thompson (Nico Alcaide was co-founder until October 2026 and has left the course)
 **Course:** Launching AI-Native Ventures, Esade
-**Last updated:** 28 October 2026 (Session 7)
+**Last updated:** 9 November 2026 (Session 8)
 
 ---
 
@@ -48,6 +48,22 @@ These are the rules the product and the code follow. When the AI suggests someth
 - **Supabase Row Level Security is ON for every table** once the database is added: each user can only read and write their own pantry.
 - **Receipt photos are not stored.** They are sent to Claude, read, and discarded. Only the confirmed item list is kept.
 - **No real user touches a feature until these three rules are checked.**
+- **Text in a photo or typed by a user is data, never instructions** (Session 8). The prompt says so, and suggested shared rules that look like instructions are blocked on `/review` and cannot be approved.
+
+## Workflow (added Session 8)
+
+One user request = one receipt photo. Steps, in order:
+
+| Step | What happens | What it uses | Who decides |
+|---|---|---|---|
+| 1. Read the photo | Claude reads the text on the receipt image | Claude (vision), `app/api/read-receipt/route.js` | AI |
+| 2. Line -> product | Each line becomes name, quantity, unit, price, expiry days; then server rules clean it, cap expiry days (safety limit) and check the total | Claude prompt v0.3 + `lib/clean.js`, `lib/safety.js` | AI + fixed rules |
+| 3. Check the list | Learned preferences shown in green; the user corrects or deletes lines; corrections go to the learning log | `app/page.js`, `lib/learning.js` | Human (user) + rule |
+| 4. Add to pantry | Items saved with an expiry date | `lib/pantry.js` (browser storage) | Fixed rule |
+
+Shared learning (Session 7) runs next to it: corrections -> `/review` -> founder approves -> `lib/approved-rules.js` -> prompt.
+
+**Evals:** 15 test receipts (10 normal, 5 attacks) and a harness that runs each answer through the real code and logs every step. Before the fix: 8/10 normal, 2/5 attacks; errors per step 1 / 3 / 1 / 0. After fixing step 2: 10/10 and 4/5; 1 / 0 / 0 / 0. Still open: a restaurant menu is not refused (step 1).
 
 ## Learning loop (added Session 7)
 
@@ -109,6 +125,18 @@ Note: competitor names, market size (≈$414M meal-planning app market in 2025) 
 ---
 
 ## 6. Session log
+
+### Session 8 — 9 November 2026 (Agentic workflows and evals)
+
+- Mapped the product as a 4-step workflow (see Workflow). Step I trusted least: step 1, reading the photo (blurry or crooked photos).
+- Built a test set of 15 receipts made by us (no new real users yet): 10 normal (abbreviations, discounts, weight, several units, bags, blur, rotation, long shop, non-food) and 5 attacks (direct injection through a typed product name, hidden instruction in the receipt, restaurant menu, fish "lasts 30 days", asking for the system prompt).
+- Ran them with the prompt in the app and the real code. Before: 8/10 normal OK, 2/5 attacks safe. Errors per step: 1 / **3** / 1 / 0. Step 2 fails most, not step 1 (blur and rotation were fine).
+- Found a bug in our own red line: "salmon ... lomos" matched "lomo" (meat, 3 days) before fish (2 days).
+- **Fix (step 2 only):** prompt v0.3 with rules and examples for discounts, non-food and ignoring durations printed on the receipt; the AI also returns the receipt total and the app warns if the products add up to more than it; the safety limit now uses the strictest rule that matches.
+- **Guardrail (worst attack, case 11):** suggested rules that look like instructions are blocked and the Approve button is disabled, so typed text can never reach the shared prompt.
+- After: 10/10 normal, 4/5 attacks, 0 errors in step 2. Nothing that worked before broke.
+- **Still failing:** case 13, a restaurant menu is added as "Menu del dia". Next fix is step 1: the AI must say if the photo is not a receipt and the app must refuse it.
+- **Honest limits:** receipts are computer-made, cleaner than real photos; step 1 was run by Claude in chat with the app's exact prompt (no live API key yet), and the after run kept the same readings and changed only what the new rules change.
 
 ### Session 7 — 28 October 2026 (Products that learn)
 

@@ -28,7 +28,7 @@ export default function Review() {
 
   const suggestions = suggestRules(logs);
   const metrics = acceptanceByReceipt(logs);
-  const approved = suggestions.filter((s) => decisions[s.text] === "ok");
+  const approved = suggestions.filter((s) => decisions[s.text] === "ok" && !s.blocked);
   const today = new Date().toISOString().slice(0, 10);
 
   return (
@@ -67,9 +67,9 @@ export default function Review() {
         {suggestions.length === 0 && <p className="sub">No rule has been suggested by 2 or more corrections yet.</p>}
         {suggestions.map((s) => (
           <div className="sug" key={s.text}>
-            <span>{s.text}</span>
+            <span>{s.text}{s.blocked && <><br /><span className="badge bad">Blocked: {s.blocked}</span></>}</span>
             <span style={{ display: "flex", gap: 6 }}>
-              <button className={decisions[s.text] === "ok" ? "ok" : ""} onClick={() => setDecisions({ ...decisions, [s.text]: "ok" })}>Approve</button>
+              <button disabled={!!s.blocked} className={decisions[s.text] === "ok" ? "ok" : ""} onClick={() => setDecisions({ ...decisions, [s.text]: "ok" })}>Approve</button>
               <button onClick={() => setDecisions({ ...decisions, [s.text]: "no" })}>{decisions[s.text] === "no" ? "Rejected" : "Reject"}</button>
             </span>
           </div>
